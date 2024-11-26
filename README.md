@@ -1,1 +1,1 @@
-*Projeto da matéria de Programação com Acesso a Banco de Dados*
+*Projetos da matéria de Programação com Acesso a Banco de Dados*
