@@ -22,6 +22,6 @@ public class Servidor
     [Column("id_cam_fk")]
     public int CampusId { get; set; }
 
-    public virtual Campus? Campus { get; set; }
+    public virtual Campus? Campus { get; set; } //recebe o objeto Campus
 }
 

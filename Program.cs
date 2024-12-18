@@ -15,7 +15,7 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Busca string de conex�o e adiciona a classe AppDbContext Service do EF
+// Busca string de conexão e adiciona a classe AppDbContext Service do EF
 var connectionString = builder.Configuration.GetConnectionString("default");
 builder.Services.AddDbContext<AppDbContext>(options => 
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))

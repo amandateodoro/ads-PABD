@@ -8,9 +8,12 @@ namespace ApiGestaoFacil.DataContexts
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
+        //mostrando as tabelas
         public DbSet<Servidor> Servidores { get; set; }
         public DbSet<Campus> Campus { get; set; }
 
+
+        //sql join
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<Campus>()
