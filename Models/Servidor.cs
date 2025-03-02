@@ -1,10 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiGestaoFacil.Models;
 
-[Table("servidor")]
+[Table("servidor"), PrimaryKey(nameof(Id))]
 public class Servidor
 {
     [Column("id_ser")]
@@ -22,6 +22,9 @@ public class Servidor
     [Column("id_cam_fk")]
     public int CampusId { get; set; }
 
-    public virtual Campus? Campus { get; set; } //recebe o objeto Campus
-}
+    public virtual Campus? Campus { get; set; }
 
+    public List<Funcao> Funcoes { get; } = [];
+
+    public ICollection<PortariaServidor>? PortariaServidores { get; set; }
+}

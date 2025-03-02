@@ -1,4 +1,5 @@
-﻿using ApiGestaoFacil.DataContexts;
+﻿
+using ApiGestaoFacil.DataContexts;
 using ApiGestaoFacil.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

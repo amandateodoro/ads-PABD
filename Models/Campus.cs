@@ -16,5 +16,7 @@ public class Campus
     public required string Nome { get; set; }
 
     //[JsonIgnore]
-    public ICollection<Servidor>? Servidores { get; set; } //lista linkada ao banco de dados
+    public ICollection<Servidor>? Servidores { get; set; }
+
+    public ICollection<Portaria>? Portarias { get; set; } = [];
 }

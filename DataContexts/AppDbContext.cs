@@ -1,4 +1,4 @@
-﻿using ApiGestaoFacil.Models;
+﻿﻿using ApiGestaoFacil.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiGestaoFacil.DataContexts
@@ -8,12 +8,16 @@ namespace ApiGestaoFacil.DataContexts
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        //mostrando as tabelas
         public DbSet<Servidor> Servidores { get; set; }
+
         public DbSet<Campus> Campus { get; set; }
 
+        public DbSet<Funcao> Funcoes { get; set; }
 
-        //sql join
+        public DbSet<Portaria> Portarias { get; set; }
+
+        public DbSet<PortariaServidor> PortariaServidores { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<Campus>()
@@ -26,6 +30,34 @@ namespace ApiGestaoFacil.DataContexts
                 .HasOne(e => e.Campus)
                 .WithMany(e => e.Servidores)
                 .HasForeignKey(e => e.CampusId)
+                .IsRequired(false);
+
+            modelBuilder.Entity<Servidor>()
+                .HasMany(s => s.Funcoes) // Um servidor tem muitas funções
+                .WithMany(f => f.Servidores) // Uma função tem muitos servidores
+                .UsingEntity<Dictionary<string, object>>(
+                    "servidor_funcao", // Nome da tabela de junção
+                    j => j.HasOne<Funcao>().WithMany().HasForeignKey("funcao_id"), // Chave estrangeira para Funcao
+                    j => j.HasOne<Servidor>().WithMany().HasForeignKey("servidor_id"), // Chave estrangeira para Servidor
+                    j => j.ToTable("servidor_funcao") // Nome da tabela de junção
+                );
+            
+            modelBuilder.Entity<Portaria>()
+                .HasOne(e => e.Campus)
+                .WithMany(e => e.Portarias)
+                .HasForeignKey(e => e.CampusId)
+                .IsRequired(false);
+
+            modelBuilder.Entity<PortariaServidor>()
+                .HasOne(e => e.Servidor)
+                .WithMany(e => e.PortariaServidores)
+                .HasForeignKey(e => e.ServidorId)
+                .IsRequired(false);
+
+            modelBuilder.Entity<PortariaServidor>()
+                .HasOne(e => e.Portaria)
+                .WithMany(e => e.PortariaServidores)
+                .HasForeignKey(e => e.PortariaId)
                 .IsRequired(false);
         }
     }
